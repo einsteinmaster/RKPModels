@@ -7,6 +7,7 @@ namespace UnitTestProject1
     [TestClass]
     public class MaterialMatrixTest
     {
+        const string path_lagerVorlage = @"..\..\..\lagerVorlage.csv";
         [TestMethod]
         public void TestInactive37()
         {
@@ -112,6 +113,16 @@ namespace UnitTestProject1
             Assert.IsTrue(mat.IsNotNegativ());
             mat[3, 34] = -5;
             Assert.IsFalse(mat.IsNotNegativ());
+        }
+        [TestMethod]
+        public void TestDeserialization()
+        {
+            MaterialMatrix mat = MaterialMatrix.ReadFromFile(path_lagerVorlage);
+            Assert.AreEqual(6, mat[0, 0]);
+            Assert.AreEqual(1, mat[0, 38]);
+            Assert.AreEqual(3, mat[6, 38]);
+            Assert.AreEqual(0, mat[6, 39]);
+            Assert.AreEqual(0, mat[6, 40]);
         }
     }
 }

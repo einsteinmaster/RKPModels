@@ -61,8 +61,15 @@ namespace RKPModels
                     tmp += next;
                 }
             }
+            if (!String.IsNullOrEmpty(tmp))
+                values.Push(tmp);
             pos++;
-            return values.ToArray();
+            string[] ret = new string[values.Count];
+            for (int cnt = 0; cnt < ret.Length; cnt++)
+            {
+                ret[ret.Length - 1 - cnt] = values.Pop();
+            }
+            return ret;
         }
     }
 }
