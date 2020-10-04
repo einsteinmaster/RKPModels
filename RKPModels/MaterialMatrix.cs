@@ -290,5 +290,26 @@ namespace RKPModels
             }
             return mat;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj.GetType() != typeof(MaterialMatrix))
+                return false;
+            var m2 = (MaterialMatrix)obj;
+            for (int x = 0; x < SIZE_X; x++)
+            {
+                for (int y = 0; y < SIZE_Y; y++)
+                {
+                    if (m2.IsInactive(x, y) ^ this.IsInactive(x, y))
+                        return false;
+                    if (!IsInactive(x, y))
+                    {
+                        if (m2[x, y] != this[x, y])
+                            return false;
+                    }
+                }
+            }
+            return true;
+        }
     }
 }

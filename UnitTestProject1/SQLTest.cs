@@ -8,6 +8,7 @@ namespace UnitTestProject1
     {
         const string host = @"10.250.0.10";
         const string kennliste_path = @"..\..\..\Kennliste2.xlsx";
+        const string path_lagerVorlage = @"..\..\..\lagerVorlage.csv";
         [TestMethod]
         public void ImportKennliste()
         {
@@ -72,6 +73,44 @@ namespace UnitTestProject1
             var excelWrapper = new MySQLArticleClient(host);
             var res = excelWrapper.GetProductkey("D951-5051");
             Assert.IsNull(res);
+        }
+        [TestMethod]
+        public void SetMaterialMatrix()
+        {
+            var excelWrapper = new MySQLArticleClient(host);
+            MaterialMatrix mat = MaterialMatrix.ReadFromFile(path_lagerVorlage);
+            excelWrapper.SetAvailibilityMatrix(mat);
+        }
+        [TestMethod]
+        public void GetMaterialMatrix()
+        {
+            var excelWrapper = new MySQLArticleClient(host);
+            var res = excelWrapper.GetAvailibilityMatrix();
+            Assert.IsNotNull(res);
+        }
+        [TestMethod]
+        public void MaterialMatrixValues()
+        {
+            var excelWrapper = new MySQLArticleClient(host);
+            MaterialMatrix mat = MaterialMatrix.ReadFromFile(path_lagerVorlage);
+            excelWrapper.SetAvailibilityMatrix(mat);
+            var res = excelWrapper.GetAvailibilityMatrix();
+            Assert.IsNotNull(res);
+            Assert.AreEqual(mat, res);
+        }
+        [TestMethod]
+        public void AvailibilityValues()
+        {
+            var excelWrapper = new MySQLArticleClient(host);
+            string article = "D951-5001";
+            bool avai = true;
+            excelWrapper.SetAvailibility(article, avai);
+            var res = excelWrapper.GetAvailibility(article);
+            Assert.AreEqual(avai, res);
+            avai = false;
+            excelWrapper.SetAvailibility(article, avai);
+            res = excelWrapper.GetAvailibility(article);
+            Assert.AreEqual(avai,res);
         }
     }
 }

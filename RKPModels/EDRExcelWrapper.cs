@@ -186,5 +186,15 @@ namespace RKPModels
         {
             return SearchRow(article);
         }
+
+        public MaterialMatrix GetAvailibilityMatrix()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetAvailibilityMatrix(MaterialMatrix mat)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -18,5 +18,15 @@ namespace RKPModels
         /// <param name="article">partial article number</param>
         /// <returns>a list of results</returns>
         IList<string[]> SearchProductkey(string article);
+        /// <summary>
+        /// Receives the Availibility matrix from the db
+        /// </summary>
+        /// <returns>availibility matrix</returns>
+        MaterialMatrix GetAvailibilityMatrix();
+        /// <summary>
+        /// Stores the Availibility matrix in db
+        /// </summary>
+        /// <param name="mat">matrix to save</param>
+        void SetAvailibilityMatrix(MaterialMatrix mat);
     }
 }
