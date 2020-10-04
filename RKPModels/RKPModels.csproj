@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -9,7 +9,13 @@
   <ItemGroup>
     <PackageReference Include="ExcelDataReader" Version="3.6.0" />
     <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
+    <PackageReference Include="MySql.Data" Version="8.0.21" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
   </ItemGroup>
+
+  <!--<Target Name="PushNuGetPackage" Condition="'$(Configuration)' == 'Release'" AfterTargets="GenerateNuspec">
+    <Message Text="Push NuGet Package to NuGet Feed" Importance="high"></Message>
+    <Exec Command="nuget push $(ProjectDir)bin\Release\RKPModels.$(Version).nupkg qz2jga8pl3dvn2akksyquwcs9ygggg4exypy3bhxy6w6x6 -Source https://api.nuget.org/v3/index.json"></Exec>
+  </Target>-->
 
 </Project>

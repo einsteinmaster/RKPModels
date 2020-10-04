@@ -11,8 +11,6 @@ namespace UnitTestProject1
         [TestMethod]
         public void RightColumn3()
         {
-            // ssl_marius
-            // 789Marius987.-
             var excelWrapper = new EDRExcelWrapper(kennliste_path);
             string[] obj = excelWrapper.GetRow(2);
             Assert.AreEqual(obj[2].Trim(), "LP FY 20");
@@ -47,6 +45,33 @@ namespace UnitTestProject1
             string[] obj = res[0];
             Assert.AreEqual(obj[0].Trim(), "D954-2305");
             Assert.AreEqual(obj[1].Trim(), "HPR15A7RKP063KM28S2Z11");
+        }
+        [TestMethod]
+        public void RightColumnCount()
+        {
+            var excelWrapper = new EDRExcelWrapper(kennliste_path);
+            for(int cnt = 50; cnt < 100; cnt++)
+            {
+                var res = excelWrapper.GetRow(cnt);
+                Assert.IsTrue(51 <= res.Length,"there are only "+res.Length+" columns in row "+cnt);
+            }
+        }
+        [TestMethod]
+        public void RestartAtEndSearch()
+        {
+            var excelWrapper = new EDRExcelWrapper(kennliste_path);
+            Assert.IsNotNull(excelWrapper.GetRow(100));
+            Assert.IsNotNull(excelWrapper.GetRow(99));
+        }
+        [TestMethod]
+        public void FindLastPumpInList()
+        {
+            var excelWrapper = new EDRExcelWrapper(kennliste_path);
+            var lastpump = "D959Z5003";
+            var retlist = (excelWrapper.SearchRow(lastpump));
+            Assert.IsNotNull(retlist);
+            Assert.AreEqual(1, retlist.Count);
+            Assert.AreEqual("D959Z5003", retlist[0][0]);
         }
     }
 }

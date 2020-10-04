@@ -7,7 +7,7 @@ using System.Reflection.Emit;
 
 namespace RKPModels
 {
-    public class EDRExcelWrapper : ExcelWrapper
+    public class EDRExcelWrapper : ExcelWrapper , IArticleDB
     {
         private string filename;
         private int colCount;
@@ -68,6 +68,8 @@ namespace RKPModels
 
         public string[] GetRow(int c)
         {
+            if (c >= rowCount)
+                return null;
             if (data[c, 0] == null)
             {
                 while (c != currentRow)
@@ -164,6 +166,25 @@ namespace RKPModels
         public int GetRowCount()
         {
             return rowCount;
+        }
+
+        public string[] GetProductkey(string article)
+        {
+            var list = SearchRow(article);
+            if (list.Count > 1)
+                throw new ArgumentException("article " + article + " has more than 1 result (" + list.Count + ")");
+            if (list == null || list.Count == 0)
+                return null;
+            return list[0];
+        }
+
+        public void Dispose()
+        {
+        }
+
+        public IList<string[]> SearchProductkey(string article)
+        {
+            return SearchRow(article);
         }
     }
 }
